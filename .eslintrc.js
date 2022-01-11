@@ -1,22 +1,21 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es2021": true
+    extends: "airbnb",
+    root: true,
+    env: {
+      browser: true,
+      node: true,
+      jest: true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 13,
-        "sourceType": "module"
+    rules: {
+      "arrow-parens": "off",
+      "consistent-return": "off",
+      "func-names": "off",
+      "no-console": "off",
+      "radix": "off",
+      "react/button-has-type": "off",
+      "react/destructuring-assignment": "off",
+      "react/jsx-filename-extension": "off",
+      "react/prop-types": "off",
     },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-    }
-};
+  };
+  
