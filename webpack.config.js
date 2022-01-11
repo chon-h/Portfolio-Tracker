@@ -10,7 +10,7 @@ module.exports = {
         // publicPath: '/build/',
         filename: 'bundle.js',
     },
-    mode: process.env.NODE_ENV,
+    mode: 'development',
     // mode: 'development',
     module: {
         rules: [
@@ -36,8 +36,8 @@ module.exports = {
           }
         ]
     },
-    // plugins: [new HtmlWebpackPlugin({template: 'index.html'})],
-    plugins: [new HtmlWebpackPlugin()],
+    plugins: [new HtmlWebpackPlugin({template: '/client/index.html'})],
+    // plugins: [new HtmlWebpackPlugin()],
     devServer: {
         // static: {
         //   directory: path.resolve(__dirname, 'build'),
