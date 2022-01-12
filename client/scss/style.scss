@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Ubuntu Light', 'Century Gothic', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #393939;
+}
+
+.outerBox {
+    margin: 1em;
+}
+
+.creator{
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.container {
+    margin: 1em;
+    line-height: 1.5em;
+}
+
+.portfolioItems {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.performanceDisplay{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}

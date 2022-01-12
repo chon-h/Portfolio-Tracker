@@ -1,10 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
-const App = () => {
- return <h1>This is my React app!</h1>;
- }
+import { Provider } from 'react-redux';
+import store from './store';
+import App from "./App.jsx";
 
 render(
-  <App />, 
-  document.getElementById('root')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
 );
