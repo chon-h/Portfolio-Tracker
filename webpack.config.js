@@ -7,11 +7,10 @@ module.exports = {
     entry: './client/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'), 
-        // publicPath: '/build/',
+        // publicPath: '/dist/',
         filename: 'bundle.js',
     },
-    mode: 'development',
-    // mode: 'development',
+    mode: process.env.NODE_ENV,
     module: {
         rules: [
           {
@@ -36,11 +35,11 @@ module.exports = {
           }
         ]
     },
-    plugins: [new HtmlWebpackPlugin({template: '/client/index.html'})],
+    plugins: [new HtmlWebpackPlugin({template: path.resolve(__dirname,'./client/index.html')})],
     // plugins: [new HtmlWebpackPlugin()],
     devServer: {
         // static: {
-        //   directory: path.resolve(__dirname, 'build'),
+        //   directory: path.resolve(__dirname, 'client'),
         //   publicPath: "/",
         // },
         compress: true,
