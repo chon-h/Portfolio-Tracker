@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
     //  Subscribe to state that we need
     totalValue: state.stocks.totalValue,
     totalCost: state.stocks.totalCost,
-    realizedGain: state.stocks.realizedGain,
+    realizedGain: state.stocks.portfolio.realizedGain,
 });
 
 const PerformanceContainer = props => (

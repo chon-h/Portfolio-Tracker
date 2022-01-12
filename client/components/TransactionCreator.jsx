@@ -29,10 +29,10 @@ const TransactionCreator = (props) => (
             <input id="price" className="input-box" type="text" />
         </div>
         <div className="box action-buttons">
-            <input id="Buy" type="submit" value="Buy"
+            <input id="Buy" type="button" value="Buy"
                 onClick={() => clickFunction(props.Buy)}
             />
-            <input id="Sell" type="submit" value="Sell"
+            <input id="Sell" type="button" value="Sell"
                 onClick={() => clickFunction(props.Sell)}
             />
         </div>

@@ -16,6 +16,11 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+//  response to get request on portfolio 
+// app.use('/portfolio', portfolioRouter, (req, res) =>{
+//   return res.status(200)
+// })
+
 //  listen to PORT
 app.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}...`);

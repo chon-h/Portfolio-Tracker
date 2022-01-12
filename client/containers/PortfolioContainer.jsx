@@ -5,7 +5,7 @@ import PortfolioItems from '../components/PortfolioItems.jsx'
 
 const mapStateToProps = state => ({
     //  Subscribe to state that we need
-    stockList: state.stocks.stockList,
+    portfolioItem: state.stocks.portfolio.stocks,
 });
 
 function sorting(a, b) {
@@ -21,15 +21,15 @@ function sorting(a, b) {
 
 const PortfolioContainer = props => {
     const PortfolioArr = [];
-    const keyArr = Object.keys(props.stockList);
+    const keyArr = Object.keys(props.portfolioItem);
     keyArr.sort(sorting);
     for (let i = 0; i < keyArr.length; i++) {
         PortfolioArr.push(<PortfolioItems
             ticker={keyArr[i]}
-            quantity={props.stockList[keyArr[i]].quantity}
-            cost={props.stockList[keyArr[i]].cost}
-            price={props.stockList[keyArr[i]].price}
-            key = {keyArr[i]}
+            quantity={props.portfolioItem[keyArr[i]].quantity}
+            cost={props.portfolioItem[keyArr[i]].cost}
+            price={props.portfolioItem[keyArr[i]].price}
+            key={keyArr[i]}
         />);
     }
 
