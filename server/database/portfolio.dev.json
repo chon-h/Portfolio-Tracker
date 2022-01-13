@@ -3,8 +3,23 @@
     "AAPL": {
       "cost": 100,
       "quantity": 100,
-      "price": 100
+      "price": 175.53
+    },
+    "AMZN": {
+      "cost": 100,
+      "quantity": 100,
+      "price": 3304.14
+    },
+    "TSLA": {
+      "cost": 100,
+      "quantity": 100,
+      "price": 1106.22
+    },
+    "BLNK": {
+      "cost": 50.5,
+      "quantity": 200,
+      "price": 23.84
     }
   },
-  "realizedGain": 0
+  "realizedGain": 1380000
 }

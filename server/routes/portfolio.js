@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/',
     portfolioController.getPortfolio,
+    // portfolioController.updatePrices,
     (req, res) => res.status(200).json(res.locals.portfolio)
 );
 

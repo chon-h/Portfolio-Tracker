@@ -7,12 +7,17 @@ const initialState = {
     },
     totalValue: 0,
     totalCost: 0,
-    sync: false,
+    updated: false,
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case types.BUY: {
+            //  Check if the form is filled in correctly
+            if (isNaN(action.payload.quantity)|| isNaN(action.payload.price) || action.payload.ticker == ''){
+                alert('Please fill in the form correctly');
+                return state;
+            }
             //  Create an object to store the updated information for the stock we are trying to add position 
             const stock = {};
 
@@ -21,13 +26,13 @@ const reducer = (state = initialState, action) => {
             if (state.portfolio.stocks[action.payload.ticker] === undefined) {
                 stock.cost = 0;
                 stock.quantity = 0;
-                stock.price = 100;
+                stock.price = 0;
             } else Object.assign(stock, state.portfolio.stocks[action.payload.ticker]);
 
             //  Calculate the new cost, quantity and price(to be done)
             const quantity = action.payload.quantity + stock.quantity;
             const cost = (action.payload.price * action.payload.quantity + stock.cost * stock.quantity) / quantity;
-            const price = 100; //To be finished later
+            const price = action.payload.currentPrice;; //To be finished later
 
             //  Assign the updated data to the stock object
             Object.assign(stock, { quantity, cost, price });
@@ -45,19 +50,22 @@ const reducer = (state = initialState, action) => {
             // console.log(updateStocksObject);
             const portfolio = Object.assign({}, state.portfolio, {stocks: updateStocksObject});
 
-            const sync = false;
-
             //  Return the upated states
             return {
                 ...state,
                 totalCost,
                 totalValue,
                 portfolio,
-                sync
             };
         }
 
         case types.SELL: {
+            //  Check if the form is filled in correctly
+            if (isNaN(action.payload.quantity)|| isNaN(action.payload.price) || action.payload.ticker == ''){
+                alert('Please fill in the form correctly');
+                return state;
+            }
+
             //  Create an object for the newStock/updateStock
             const stock = {};
 
@@ -92,24 +100,37 @@ const reducer = (state = initialState, action) => {
             Object.assign(portfolio, {stocks: updateStocksObject}, { realizedGain });
             if (quantity === 0) delete portfolio.stocks[action.payload.ticker];
 
-            const sync = false;
-
             //  Return the upated states
             return {
                 ...state,
                 totalCost,
                 totalValue,
                 portfolio,
-                sync
             };
         }
 
         case types.SYNCDATA:{
-            const sync = true;
-            return {
-                ...state,
-                sync
-            }
+            return state;
+        }
+
+        case types.GETDATA:{
+            //  Create placeholder and compute total cost and total value
+            let totalCost = 0;
+            let totalValue = 0;
+            if (action.payload.stocks){
+                for (const key in action.payload.stocks){
+                    totalCost += action.payload.stocks[key].cost * action.payload.stocks[key].quantity;
+                    totalValue += action.payload.stocks[key].price * action.payload.stocks[key].quantity;
+                }
+                return {
+                    ...state,
+                    portfolio: action.payload,
+                    totalCost,
+                    totalValue
+                }
+            }else return state;
+            //  Update state according to our database data
+            
         }
 
         default:

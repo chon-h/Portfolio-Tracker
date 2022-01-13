@@ -8,9 +8,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const clickFunction = (callback) => {
-    const quantity = Number(document.querySelector('#quantity').value);
-    const price = Number(document.querySelector('#price').value);
-    const ticker = document.querySelector('#ticker').value;
+    const quantityTag = document.querySelector('#quantity');
+    const priceTag = document.querySelector('#price');
+    const tickerTag = document.querySelector('#ticker');
+    const quantity = Number(quantityTag.value);
+    const price = Number(priceTag.value);
+    const ticker = tickerTag.value;
+    quantityTag.value = null;
+    priceTag.value = null;
+    tickerTag.value = null;
     callback({ quantity, price, ticker });
 }
 

@@ -2,10 +2,10 @@ import React from 'react';
 
 const PerformanceData = (props) => (
     <div className='performanceDisplay'>
-        <div>{props.totalCost}</div>
-        <div>{props.totalValue}</div>
-        <div>{props.totalValue - props.totalCost}</div>
-        <div>{props.realizedGain}</div>
+        <div>{props.totalCost.toFixed(2)}</div>
+        <div>{props.totalValue.toFixed(2)}</div>
+        <div>{(props.totalValue - props.totalCost).toFixed(2)}</div>
+        <div>{props.realizedGain.toFixed(2)}</div>
     </div>
 );
 
