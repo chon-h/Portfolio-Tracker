@@ -134,6 +134,14 @@ const reducer = (state = initialState, action) => {
 
         }
 
+        case types.SIGNUP: {
+            const login = true; 
+            return {
+                ...state,
+                login,
+            }
+        }
+
         case types.LOGIN: {
             const login = true;
             return {
@@ -154,6 +162,7 @@ const reducer = (state = initialState, action) => {
                 login: true,
             };
         }
+
 
         default: {
             return state;

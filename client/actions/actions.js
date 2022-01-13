@@ -53,9 +53,21 @@ export const updatePrice = () => (dispatch, getState) => {
         .catch(console.error);
 };
 
-export const login = () => ({
-    type: types.LOGIN,
-});
+export const login = (data) => (dispatch, getState) => {
+    axios.put('/userpage/login', data)
+        .then((response) => {
+            dispatch({type: types.LOGIN});
+        })
+        .catch(console.error);
+};
+
+export const signup = (data) => (dispatch, getState) => {
+    axios.post('/userpage/signup', data)
+        .then((response) => {
+            dispatch({type: types.SIGNUP});
+        })
+        .catch(console.error);
+};
 
 export const reset = () => (dispatch, getState) => {
     axios.put('/portfolio/reset')

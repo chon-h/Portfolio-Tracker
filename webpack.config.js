@@ -49,6 +49,7 @@ module.exports = {
     port: 8080,
     proxy: {
       '/portfolio': 'http://localhost:3000',
+      '/userpage': 'http://localhost:3000',
     },
   },
 };

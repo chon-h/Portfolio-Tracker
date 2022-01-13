@@ -1,20 +1,15 @@
 {
   "stocks": {
     "AAPL": {
-      "cost": 100,
-      "quantity": 1000,
+      "cost": 75,
+      "quantity": 2000,
       "price": 175.53
     },
     "TSLA": {
       "cost": 200,
       "quantity": 1000,
       "price": 1106.22
-    },
-    "AMZN": {
-      "cost": 1200,
-      "quantity": 500,
-      "price": 3304.14
     }
   },
-  "realizedGain": 0
+  "realizedGain": 900000
 }

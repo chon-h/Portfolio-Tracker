@@ -3,8 +3,19 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
 const mapDispatchToProps = dispatch => ({
-    login: () => dispatch(actions.login()),
+    login: (data) => dispatch(actions.login(data)),
+    signup: (data) => dispatch(actions.signup(data))
 });
+
+const clickFunction = (callback) => {
+    const usernameTag = document.querySelector('#username');
+    const passwordTag = document.querySelector('#passowrd');
+    const username = usernameTag.value;
+    const password = passwordTag.value;
+    // usernameTag.value = null;
+    // passwordTag.value = null;
+    callback({ username, password });
+}
 
 const FrontContainer = props => {
     return (
@@ -15,14 +26,14 @@ const FrontContainer = props => {
             </div>
             <div className="box" id="passowrdBox">
                 <label htmlFor="">Password:</label>
-                <input id="passowrd" className="input-box" type="text" />
+                <input id="passowrd" className="input-box" type="password" />
             </div>
             <div className="box action-buttons">
                 <input id="login" type="button" value="Login"
-                    onClick={props.login}
+                    onClick={() => clickFunction(props.login)}
                 />
                 <input id="signup" type="button" value="Sign Up"
-                    onClick={props.login}
+                    onClick={() => clickFunction(props.signup)}
                 />
             </div>
         </div>
