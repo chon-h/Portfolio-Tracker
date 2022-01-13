@@ -4,11 +4,11 @@ const portfolioController = require('../controllers/portfolioController');
 
 const router = express.Router();
 
-router.get('/',
-    portfolioController.getPortfolio,
-    // portfolioController.updatePrices,
-    (req, res) => res.status(200).json(res.locals.portfolio)
-);
+// router.get('/',
+//     portfolioController.getPortfolio,
+//     // portfolioController.updatePrices,
+//     (req, res) => res.status(200).json(res.locals.portfolio)
+// );
 
 router.put('/',
     portfolioController.updatePortfolio,
@@ -16,7 +16,7 @@ router.put('/',
 );
 
 router.get('/update',
-    portfolioController.getPortfolio,
+    portfolioController.getUserPortfolio,
     portfolioController.updatePrices,
     (req, res) => res.status(200).json(res.locals.portfolio)
 );

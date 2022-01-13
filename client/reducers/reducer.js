@@ -11,6 +11,16 @@ const initialState = {
     login: false,
 };
 
+const computeCostAndValue = (action) => {
+    let totalCost = 0;
+    let totalValue = 0;
+    for (const key in action.payload.stocks) {
+        totalCost += action.payload.stocks[key].cost * action.payload.stocks[key].quantity;
+        totalValue += action.payload.stocks[key].price * action.payload.stocks[key].quantity;
+    }
+    return [totalCost, totalValue]
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case types.BUY: {
@@ -115,14 +125,8 @@ const reducer = (state = initialState, action) => {
         }
 
         case types.GETDATA: {
-            //  Create placeholder and compute total cost and total value
-            let totalCost = 0;
-            let totalValue = 0;
             if (action.payload.stocks) {
-                for (const key in action.payload.stocks) {
-                    totalCost += action.payload.stocks[key].cost * action.payload.stocks[key].quantity;
-                    totalValue += action.payload.stocks[key].price * action.payload.stocks[key].quantity;
-                }
+                const [totalCost, totalValue] = computeCostAndValue(action);
                 return {
                     ...state,
                     portfolio: action.payload,
@@ -130,23 +134,29 @@ const reducer = (state = initialState, action) => {
                     totalValue
                 }
             } else return state;
-            //  Update state according to our database data
-
         }
 
         case types.SIGNUP: {
-            const login = true; 
+            const login = true;
+            const [totalCost, totalValue] = computeCostAndValue(action);
             return {
                 ...state,
-                login,
+                portfolio: action.payload,
+                totalCost,
+                totalValue,
+                login
             }
         }
 
         case types.LOGIN: {
             const login = true;
+            const [totalCost, totalValue] = computeCostAndValue(action);
             return {
                 ...state,
-                login,
+                portfolio: action.payload,
+                totalCost,
+                totalValue,
+                login
             }
         }
 

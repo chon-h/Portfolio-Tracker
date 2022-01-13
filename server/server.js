@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const portfolioRouter = require('./routes/portfolio');
 const userpageRouter = require('./routes/userpage');
 
@@ -13,6 +14,7 @@ mongoose.connect(MONGO_URI, {dbName: 'soloproject'});
 //  Parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 //  Serve static files(bundle.js)
 app.use('/', express.static(path.join(__dirname, '../dist')));

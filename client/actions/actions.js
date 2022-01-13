@@ -3,19 +3,27 @@ import * as types from '../types/actionTypes';
 import axios from 'axios';
 
 export const buyStock = data => (dispatch, getState) => {
-    const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${data.ticker}&apikey=S2X573W01BT65SFA`;
+    if (data.ticker !== ''){
+        const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${data.ticker}&apikey=S2X573W01BT65SFA`;
     axios.get(url)
-      .then(response => response.data)
-      .then(response => {
-        const lastestDate = response['Meta Data']['3. Last Refreshed'];
-        const latestPrice = response['Time Series (Daily)'][lastestDate]['4. close'];
-        data.currentPrice = Number(latestPrice);
+        .then(response => response.data)
+        .then(response => {
+            const lastestDate = response['Meta Data']['3. Last Refreshed'];
+            const latestPrice = response['Time Series (Daily)'][lastestDate]['4. close'];
+            data.currentPrice = Number(latestPrice);
+            dispatch({
+                type: types.BUY,
+                payload: data,
+            });
+        })
+        .catch(console.error);
+    } else {
         dispatch({
             type: types.BUY,
             payload: data,
         });
-      })
-      .catch(console.error);
+    }
+    
 };
 
 export const sellStock = data => ({
@@ -34,8 +42,8 @@ export const syncData = () => (dispatch, getState) => {
 export const getData = () => (dispatch, getState) => {
     axios.get('/portfolio')
         .then((data) => {
-            dispatch({ 
-                type: types.GETDATA, 
+            dispatch({
+                type: types.GETDATA,
                 payload: data.data
             });
         })
@@ -45,8 +53,9 @@ export const getData = () => (dispatch, getState) => {
 export const updatePrice = () => (dispatch, getState) => {
     axios.get('/portfolio/update')
         .then((data) => {
-            dispatch({ 
-                type: types.GETDATA, 
+            console.log(data);
+            dispatch({
+                type: types.GETDATA,
                 payload: data.data
             });
         })
@@ -56,7 +65,10 @@ export const updatePrice = () => (dispatch, getState) => {
 export const login = (data) => (dispatch, getState) => {
     axios.put('/userpage/login', data)
         .then((response) => {
-            dispatch({type: types.LOGIN});
+            dispatch({
+                type: types.SIGNUP,
+                payload: response.data,
+            });
         })
         .catch(console.error);
 };
@@ -64,7 +76,10 @@ export const login = (data) => (dispatch, getState) => {
 export const signup = (data) => (dispatch, getState) => {
     axios.post('/userpage/signup', data)
         .then((response) => {
-            dispatch({type: types.SIGNUP});
+            dispatch({
+                type: types.SIGNUP,
+                payload: response.data,
+            });
         })
         .catch(console.error);
 };

@@ -10,7 +10,7 @@ const Schema = mongoose.Schema;
 */
 const portfolioSchema = new Schema({
   userID: { type: String, required: true, unique: true },
-  stocks: {type: Object},
+  stocks: {type: Object, default: {}},
   realizedGain: Number,
 });
 
