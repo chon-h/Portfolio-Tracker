@@ -5,6 +5,7 @@ import * as actions from '../actions/actions';
 const mapDispatchToProps = dispatch => ({
     Buy: (data) => dispatch(actions.buyStock(data)),
     Sell: (data) => dispatch(actions.sellStock(data)),
+    Update: () => dispatch(actions.updatePrice()),
 });
 
 const clickFunction = (callback) => {
@@ -40,6 +41,9 @@ const TransactionCreator = (props) => (
             />
             <input id="Sell" type="button" value="Sell"
                 onClick={() => clickFunction(props.Sell)}
+            />
+            <input id="Update" type="button" value="Update"
+                onClick={props.Update}
             />
         </div>
     </div>

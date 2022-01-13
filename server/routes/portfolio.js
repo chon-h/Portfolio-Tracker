@@ -15,4 +15,10 @@ router.put('/',
     (req, res) => res.sendStatus(200)
 );
 
+router.get('/update',
+    portfolioController.getPortfolio,
+    portfolioController.updatePrices,
+    (req, res) => res.status(200).json(res.locals.portfolio)
+);
+
 module.exports = router;

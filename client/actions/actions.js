@@ -3,7 +3,6 @@ import * as types from '../types/actionTypes';
 import axios from 'axios';
 
 export const buyStock = data => (dispatch, getState) => {
-
     const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${data.ticker}&apikey=S2X573W01BT65SFA`;
     axios.get(url)
       .then(response => response.data)
@@ -34,6 +33,17 @@ export const syncData = () => (dispatch, getState) => {
 
 export const getData = () => (dispatch, getState) => {
     axios.get('/portfolio')
+        .then((data) => {
+            dispatch({ 
+                type: types.GETDATA, 
+                payload: data.data
+            });
+        })
+        .catch(console.error);
+};
+
+export const updatePrice = () => (dispatch, getState) => {
+    axios.get('/portfolio/update')
         .then((data) => {
             dispatch({ 
                 type: types.GETDATA, 
