@@ -1,0 +1,10 @@
+{
+  "stocks": {
+    "AAPL": {
+      "cost": 100,
+      "quantity": 100,
+      "price": 100
+    }
+  },
+  "realizedGain": 0
+}

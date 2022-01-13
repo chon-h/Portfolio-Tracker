@@ -48,7 +48,7 @@ module.exports = {
     compress: true,
     port: 8080,
     proxy: {
-      '/api/leaders': 'http://localhost:3000',
+      '/portfolio': 'http://localhost:3000',
     },
   },
 };

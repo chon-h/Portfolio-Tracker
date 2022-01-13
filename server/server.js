@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path');
+const portfolioRouter = require('./routes/portfolio');
 
 const app = express();
 const PORT = 3000;
@@ -17,9 +18,7 @@ app.get('/', (req, res) => {
 });
 
 //  response to get request on portfolio 
-// app.use('/portfolio', portfolioRouter, (req, res) =>{
-//   return res.status(200)
-// })
+app.use('/portfolio', portfolioRouter);
 
 //  listen to PORT
 app.listen(PORT, () => {

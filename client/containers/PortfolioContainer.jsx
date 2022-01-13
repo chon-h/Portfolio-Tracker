@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
 import PortfolioDescription from '../components/PortfolioDescription.jsx'
 import PortfolioItems from '../components/PortfolioItems.jsx'
 
 const mapStateToProps = state => ({
     //  Subscribe to state that we need
-    portfolioItem: state.stocks.portfolio.stocks,
+    portfolio: state.stocks.portfolio,
+});
+
+const mapDispatchToProps = dispatch => ({
+    syncData: () => dispatch(actions.syncData()),
 });
 
 function sorting(a, b) {
@@ -19,26 +24,35 @@ function sorting(a, b) {
 }
 // const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-const PortfolioContainer = props => {
-    const PortfolioArr = [];
-    const keyArr = Object.keys(props.portfolioItem);
-    keyArr.sort(sorting);
-    for (let i = 0; i < keyArr.length; i++) {
-        PortfolioArr.push(<PortfolioItems
-            ticker={keyArr[i]}
-            quantity={props.portfolioItem[keyArr[i]].quantity}
-            cost={props.portfolioItem[keyArr[i]].cost}
-            price={props.portfolioItem[keyArr[i]].price}
-            key={keyArr[i]}
-        />);
+class PortfolioContainer extends Component {
+    constructor(props) {
+        super(props);
     }
 
-    return (
-        <div className="container">
-            <PortfolioDescription />
-            {PortfolioArr}
-        </div>
-    )
-};
+    componentDidUpdate() {
+        this.props.syncData();
+    }
 
-export default connect(mapStateToProps, null)(PortfolioContainer);
+    render() {
+        const PortfolioArr = [];
+        const keyArr = Object.keys(this.props.portfolio.stocks);
+        keyArr.sort(sorting);
+        for (let i = 0; i < keyArr.length; i++) {
+            PortfolioArr.push(<PortfolioItems
+                ticker={keyArr[i]}
+                quantity={this.props.portfolio.stocks[keyArr[i]].quantity}
+                cost={this.props.portfolio.stocks[keyArr[i]].cost}
+                price={this.props.portfolio.stocks[keyArr[i]].price}
+                key={keyArr[i]}
+            />);
+        }
+        return (
+            <div className="container">
+                <PortfolioDescription />
+                {PortfolioArr}
+            </div>
+        );
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PortfolioContainer);

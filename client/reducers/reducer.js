@@ -7,6 +7,7 @@ const initialState = {
     },
     totalValue: 0,
     totalCost: 0,
+    sync: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -44,12 +45,15 @@ const reducer = (state = initialState, action) => {
             // console.log(updateStocksObject);
             const portfolio = Object.assign({}, state.portfolio, {stocks: updateStocksObject});
 
+            const sync = false;
+
             //  Return the upated states
             return {
                 ...state,
                 totalCost,
                 totalValue,
-                portfolio
+                portfolio,
+                sync
             };
         }
 
@@ -88,13 +92,24 @@ const reducer = (state = initialState, action) => {
             Object.assign(portfolio, {stocks: updateStocksObject}, { realizedGain });
             if (quantity === 0) delete portfolio.stocks[action.payload.ticker];
 
+            const sync = false;
+
             //  Return the upated states
             return {
                 ...state,
                 totalCost,
                 totalValue,
-                portfolio
+                portfolio,
+                sync
             };
+        }
+
+        case types.SYNCDATA:{
+            const sync = true;
+            return {
+                ...state,
+                sync
+            }
         }
 
         default:
