@@ -1,8 +1,6 @@
 const cookieController = {};
 
-/**
-* setSSIDCookie - store the user id in a cookie
-*/
+//  Store userID in cookie
 cookieController.setUserIDCookie = (req, res, next) => {
   //attach a cookie to response with name ssid and value to be the id of the user in mongodb
   res.cookie('userID', res.locals.id, {

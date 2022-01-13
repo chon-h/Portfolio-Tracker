@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const portfolioRouter = require('./routes/portfolio');
 const userpageRouter = require('./routes/userpage');
+const verificationRouter = require('./routes/verification')
 
 const app = express();
 const PORT = 3000;
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 //  response to get request on portfolio 
 app.use('/portfolio', portfolioRouter);
 app.use('/userpage', userpageRouter);
+app.use('/verify', verificationRouter)
 
 //  listen to PORT
 app.listen(PORT, () => {

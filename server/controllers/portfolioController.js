@@ -38,7 +38,10 @@ portfolioController.updatePrices = async (req, res, next) => {
     await fetch(url)
       .then(response => response.json())
       .then(data => {
-        const lastestDate = data['Meta Data']['3. Last Refreshed'];
+        // console.log(data);
+        const lastestDate = data['Meta Data']['3. Last Refreshed'].slice(0, 10);
+        // console.log('lastestDate', lastestDate);
+        // console.log(data['Time Series (Daily)'][lastestDate]);
         const latestPrice = data['Time Series (Daily)'][lastestDate]['4. close'];
         res.locals.portfolio.stocks[key].price = Number(latestPrice);
       });

@@ -8,7 +8,7 @@ export const buyStock = data => (dispatch, getState) => {
     axios.get(url)
         .then(response => response.data)
         .then(response => {
-            const lastestDate = response['Meta Data']['3. Last Refreshed'];
+            const lastestDate = response['Meta Data']['3. Last Refreshed'].slice(0, 10);
             const latestPrice = response['Time Series (Daily)'][lastestDate]['4. close'];
             data.currentPrice = Number(latestPrice);
             dispatch({
