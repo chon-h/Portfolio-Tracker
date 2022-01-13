@@ -2,19 +2,20 @@ import * as types from '../types/actionTypes';
 
 const initialState = {
     portfolio: {
-        stocks:{},
+        stocks: {},
         realizedGain: 0,
     },
     totalValue: 0,
     totalCost: 0,
     updated: false,
+    login: false,
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case types.BUY: {
             //  Check if the form is filled in correctly
-            if (isNaN(action.payload.quantity)|| isNaN(action.payload.price) || action.payload.ticker == ''){
+            if (isNaN(action.payload.quantity) || isNaN(action.payload.price) || action.payload.ticker == '') {
                 alert('Please fill in the form correctly');
                 return state;
             }
@@ -48,7 +49,7 @@ const reducer = (state = initialState, action) => {
             // console.log(updatedStock);
             const updateStocksObject = Object.assign({}, state.portfolio.stocks, updatedStock);
             // console.log(updateStocksObject);
-            const portfolio = Object.assign({}, state.portfolio, {stocks: updateStocksObject});
+            const portfolio = Object.assign({}, state.portfolio, { stocks: updateStocksObject });
 
             //  Return the upated states
             return {
@@ -61,7 +62,7 @@ const reducer = (state = initialState, action) => {
 
         case types.SELL: {
             //  Check if the form is filled in correctly
-            if (isNaN(action.payload.quantity)|| isNaN(action.payload.price) || action.payload.ticker == ''){
+            if (isNaN(action.payload.quantity) || isNaN(action.payload.price) || action.payload.ticker == '') {
                 alert('Please fill in the form correctly');
                 return state;
             }
@@ -91,13 +92,13 @@ const reducer = (state = initialState, action) => {
 
             //  Create a placeholder for the updated portfolio
             const portfolio = {};
-            
+
             /*  If quantity is positive, update the portfolio, otherise delete the property from stock list 
             if it is 0 */
             const updatedStock = {};
             updatedStock[action.payload.ticker] = stock;
             const updateStocksObject = Object.assign({}, state.portfolio.stocks, updatedStock);
-            Object.assign(portfolio, {stocks: updateStocksObject}, { realizedGain });
+            Object.assign(portfolio, { stocks: updateStocksObject }, { realizedGain });
             if (quantity === 0) delete portfolio.stocks[action.payload.ticker];
 
             //  Return the upated states
@@ -109,16 +110,16 @@ const reducer = (state = initialState, action) => {
             };
         }
 
-        case types.SYNCDATA:{
+        case types.SYNCDATA: {
             return state;
         }
 
-        case types.GETDATA:{
+        case types.GETDATA: {
             //  Create placeholder and compute total cost and total value
             let totalCost = 0;
             let totalValue = 0;
-            if (action.payload.stocks){
-                for (const key in action.payload.stocks){
+            if (action.payload.stocks) {
+                for (const key in action.payload.stocks) {
                     totalCost += action.payload.stocks[key].cost * action.payload.stocks[key].quantity;
                     totalValue += action.payload.stocks[key].price * action.payload.stocks[key].quantity;
                 }
@@ -128,13 +129,35 @@ const reducer = (state = initialState, action) => {
                     totalCost,
                     totalValue
                 }
-            }else return state;
+            } else return state;
             //  Update state according to our database data
-            
+
         }
 
-        default:
+        case types.LOGIN: {
+            const login = true;
+            return {
+                ...state,
+                login,
+            }
+        }
+
+        case types.RESET: {
+            return {
+                portfolio: {
+                    stocks: {},
+                    realizedGain: 0,
+                },
+                totalValue: 0,
+                totalCost: 0,
+                updated: true,
+                login: true,
+            };
+        }
+
+        default: {
             return state;
+        }
     }
 };
 

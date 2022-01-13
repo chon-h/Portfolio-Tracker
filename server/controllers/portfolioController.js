@@ -45,5 +45,14 @@ portfolioController.updatePrices = async (req, res, next) => {
   return next();
 };
 
+portfolioController.resetDatabase = async (req, res, next) => {
+  const emptyDatabase = {
+    "stocks": {},
+    "realizedGain": 0
+  };
+  fs.writeFileSync(path.resolve(__dirname, '../database/portfolio.dev.json'), JSON.stringify(emptyDatabase, null, 2))
+  return next();
+};
+
 // EXPORT THE CONTROLLER 
 module.exports = portfolioController;

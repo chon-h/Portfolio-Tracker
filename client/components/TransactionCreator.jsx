@@ -6,6 +6,7 @@ const mapDispatchToProps = dispatch => ({
     Buy: (data) => dispatch(actions.buyStock(data)),
     Sell: (data) => dispatch(actions.sellStock(data)),
     Update: () => dispatch(actions.updatePrice()),
+    Reset: () => dispatch(actions.reset()),
 });
 
 const clickFunction = (callback) => {
@@ -44,6 +45,9 @@ const TransactionCreator = (props) => (
             />
             <input id="Update" type="button" value="Update"
                 onClick={props.Update}
+            />
+             <input id="Reset" type="button" value="Reset"
+                onClick={props.Reset}
             />
         </div>
     </div>

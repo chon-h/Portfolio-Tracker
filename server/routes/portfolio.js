@@ -21,4 +21,9 @@ router.get('/update',
     (req, res) => res.status(200).json(res.locals.portfolio)
 );
 
+router.put('/reset',
+    portfolioController.resetDatabase,
+    (req, res) => res.sendStatus(200)
+);
+
 module.exports = router;
